@@ -31,15 +31,15 @@ def is_estimation_file(file):
     return False
 
 def loop_estimations(filename, content, callback):
-    created_date, mintor_id = filename.split('_')
+    created_date, monitor_id = filename.split('_')
     for row in content:
         if len(row) > MIN_NUM_DATA_COL:
-            callback(created_date, mintor_id, row)
+            callback(created_date, monitor_id, row)
         else:
             print(f'{filename} has an incomplete row', row)
 
-def insert_data(session, created_date, mintor_id, row):
-    new_estimation = insert_estimation(session, created_date, mintor_id, row)
+def insert_data(session, created_date, monitor_id, row):
+    new_estimation = insert_estimation(session, created_date, monitor_id, row)
     row_len = len(row)
     counter = MIN_NUM_DATA_COL - 1
     while (counter + NUM_APPLIANCE_COL) < row_len:

@@ -30,10 +30,10 @@ def is_sensor_file(file):
     return False            
 
 def loop_sensors(filename, content, callback):
-    created_date, mintor_id, _ = filename.split('_')
+    created_date, monitor_id, _ = filename.split('_')
     for row in content[1:]: # Ignore header
         if len(row) == NUM_DATA_COL:
-            callback(created_date, mintor_id, row)
+            callback(created_date, monitor_id, row)
         else:
             print(f'{filename} has an incomplete row', row)
 
