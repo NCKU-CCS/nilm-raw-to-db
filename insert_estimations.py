@@ -41,7 +41,7 @@ def loop_estimations(filename, content, callback):
 def insert_data(session, created_date, mintor_id, row):
     new_estimation = insert_estimation(session, created_date, mintor_id, row)
     row_len = len(row)
-    counter = MIN_NUM_DATA_COL
+    counter = MIN_NUM_DATA_COL - 1
     while (counter + NUM_APPLIANCE_COL) < row_len:
         insert_appliance(
             new_estimation,
@@ -69,7 +69,7 @@ def insert_estimation(session, created_date, monitor_id, row):
         session.rollback()
     return new_estimation
 
-def insert_appliance(estimation, appliance_id, type_id, name, power):
+def insert_appliance(estimation, type_id, appliance_id, name, power):
     session.add(
         Appliance(
             appliance_id=safe_cast(int, appliance_id),
