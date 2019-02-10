@@ -1,4 +1,4 @@
-## nilm_raw_to_db
+## nilm-raw-to-db
 
 Insert nilm raw data to database
 
