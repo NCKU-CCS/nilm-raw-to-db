@@ -35,7 +35,7 @@ def loop_sensors(filename, content, callback):
         if len(row) == NUM_DATA_COL:
             callback(created_date, mintor_id, row)
         else:
-            print(f'{filename} has an incompleted row', row)
+            print(f'{filename} has an incomplete row', row)
 
 def insert_sensor(session, created_date, monitor_id, row):
     monitor = session.query(Monitor).get(monitor_id)

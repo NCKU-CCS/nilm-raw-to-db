@@ -36,7 +36,7 @@ def loop_estimations(filename, content, callback):
         if len(row) > MIN_NUM_DATA_COL:
             callback(created_date, mintor_id, row)
         else:
-            print(f'{filename} has an incompleted row', row)
+            print(f'{filename} has an incomplete row', row)
 
 def insert_data(session, created_date, mintor_id, row):
     new_estimation = insert_estimation(session, created_date, mintor_id, row)
