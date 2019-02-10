@@ -1,0 +1,5 @@
+EG_NILM_JP
+*.db
+*.db-journal
+.vscode
+.DS_Store
