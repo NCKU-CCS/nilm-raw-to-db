@@ -20,6 +20,9 @@ from utils import (
     safe_cast,
 )
 
+NUM_DATA_COL = 7
+
+
 def get_all_sensors_files(path):
     files = list()
     for r, _, f in os.walk(path):
@@ -30,8 +33,8 @@ def get_all_sensors_files(path):
 
 def loop_sensors(filename, content, callback):
     created_date, mintor_id, _ = filename.split('_')
-    for row in content[1:]:
-        if len(row) == 7:
+    for row in content[1:]: # Ignore header
+        if len(row) == NUM_DATA_COL:
             callback(created_date, mintor_id, row)
         else:
             print(f'{filename} has an incompleted row', row)

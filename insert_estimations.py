@@ -21,6 +21,9 @@ from utils import (
     safe_cast,
 )
 
+MIN_NUM_DATA_COL = 4
+NUM_APPLIANCE_COL = 4
+
 def get_all_estimation_files(path):
     files = list()
     for r, _, f in os.walk(path):
@@ -32,7 +35,7 @@ def get_all_estimation_files(path):
 def loop_estimations(filename, content, callback):
     created_date, mintor_id = filename.split('_')
     for row in content:
-        if len(row) > 4:
+        if len(row) > MIN_NUM_DATA_COL:
             callback(created_date, mintor_id, row)
         else:
             print(f'{filename} has an incompleted row', row)
@@ -40,8 +43,8 @@ def loop_estimations(filename, content, callback):
 def insert_data(session, created_date, mintor_id, row):
     new_estimation = insert_estimation(session, created_date, mintor_id, row)
     row_len = len(row)
-    counter = 3
-    while (counter + 4) < row_len:
+    counter = MIN_NUM_DATA_COL
+    while (counter + NUM_APPLIANCE_COL) < row_len:
         insert_appliance(
             new_estimation,
             safe_cast(int, row[counter]), # Appliance Type ID
@@ -49,7 +52,7 @@ def insert_data(session, created_date, mintor_id, row):
             row[counter+2], # Appliance Name
             row[counter+3] # estimated power
         )
-        counter += 4
+        counter += NUM_APPLIANCE_COL
 
 
 def insert_estimation(session, created_date, monitor_id, row):
