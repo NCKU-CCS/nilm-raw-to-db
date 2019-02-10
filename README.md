@@ -1,8 +1,8 @@
 ## nilm-raw-to-db
 
-Insert nilm raw data to database
+Insert nilm raw data to sqlite db
 
-### Install
+### Installation
 
 ```
 $ pipenv install
@@ -14,18 +14,18 @@ $ pipenv install
 
 2. Insert monitor list
 
-```py
+```sh
 pipenv run python insert_monitors.py <monitor_list_xlsx_path>
 ```
 
 3. Insert Estimation Results
 
-```py
+```sh
 pipenv run python insert_estimations.py <nilm_folder_path>
 ```
 
 4. Insert enviromental sensor data
 
-```py
+```sh
 pipenv run python insert_enviromental_sensors.py <nilm_folder_path>
 ```
