@@ -19,18 +19,16 @@ from utils import (
     read_csv_file,
     rpartial,
     safe_cast,
+    search_files_in_folder,
 )
 
 MIN_NUM_DATA_COL = 4
 NUM_APPLIANCE_COL = 4
 
-def get_all_estimation_files(path):
-    files = list()
-    for r, _, f in os.walk(path):
-        for file in f:
-            if file.endswith('.csv') and not file.endswith('st.csv'):
-                files.append(os.path.join(r, file))
-    return files
+def is_estimation_file(file):
+    if file.endswith('.csv') and not file.endswith('st.csv'):
+        return True
+    return False
 
 def loop_estimations(filename, content, callback):
     created_date, mintor_id = filename.split('_')
@@ -90,7 +88,7 @@ if __name__ == '__main__':
 
         insert_data_with_session = partial(insert_data, session)
         loop_csv_files(
-            get_all_estimation_files(nilm_folder_path),
+            search_files_in_folder(nilm_folder_path, is_estimation_file),
             rpartial(loop_estimations, insert_data_with_session)
         )
         session.commit()

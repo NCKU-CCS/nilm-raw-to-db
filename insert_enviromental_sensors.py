@@ -18,18 +18,16 @@ from utils import (
     read_csv_file,
     rpartial,
     safe_cast,
+    search_files_in_folder,
 )
 
 NUM_DATA_COL = 7
 
 
-def get_all_sensors_files(path):
-    files = list()
-    for r, _, f in os.walk(path):
-        for file in f:
-            if file.endswith('st.csv'):
-                files.append(os.path.join(r, file))
-    return files
+def is_sensor_file(file):
+    if file.endswith('st.csv'):
+        return True
+    return False            
 
 def loop_sensors(filename, content, callback):
     created_date, mintor_id, _ = filename.split('_')
@@ -67,7 +65,7 @@ if __name__ == '__main__':
 
         insert_sensor_with_session = partial(insert_sensor, session)
         loop_csv_files(
-            get_all_sensors_files(nilm_folder_path),
+            search_files_in_folder(nilm_folder_path, is_sensor_file),
             rpartial(loop_sensors, insert_sensor_with_session)
         )
         session.commit()

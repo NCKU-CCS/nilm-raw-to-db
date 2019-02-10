@@ -1,6 +1,13 @@
 import os
 import csv
 
+def search_files_in_folder(folder, filter_fn = lambda f: True):
+    searched_files = list()
+    for r, _, files in os.walk(folder):
+        for file in files:
+            if filter_fn(file):
+                searched_files.append(os.path.join(r, file))
+    return searched_files
 
 def read_csv_file(f):
     content = []
