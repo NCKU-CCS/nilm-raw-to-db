@@ -1,5 +1,4 @@
 import sys
-import os
 from functools import partial
 from datetime import datetime
 
@@ -7,7 +6,6 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
 from model import (
-    Base,
     Monitor,
     Estimation,
     Appliance,
@@ -16,7 +14,6 @@ from model import (
 
 from utils import (
     loop_csv_files,
-    read_csv_file,
     rpartial,
     safe_cast,
     search_files_in_folder,

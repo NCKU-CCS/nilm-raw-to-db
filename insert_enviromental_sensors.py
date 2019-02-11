@@ -1,5 +1,4 @@
 import sys
-import os
 from functools import partial
 from datetime import datetime
 
@@ -7,7 +6,6 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
 from model import (
-    Base,
     Monitor,
     EnvironmentalSensor,
     engine,
@@ -15,7 +13,6 @@ from model import (
 
 from utils import (
     loop_csv_files,
-    read_csv_file,
     rpartial,
     safe_cast,
     search_files_in_folder,
@@ -27,17 +24,17 @@ NUM_DATA_COL = 7
 def is_sensor_file(file):
     if file.endswith('st.csv'):
         return True
-    return False            
+    return False
 
 def loop_sensors(filename, content, callback):
-    created_date, monitor_id, _ = filename.split('_')
+    _, monitor_id, __ = filename.split('_')
     for row in content[1:]: # Ignore header
         if len(row) == NUM_DATA_COL:
-            callback(created_date, monitor_id, row)
+            callback(monitor_id, row)
         else:
             print(f'{filename} has an incomplete row', row)
 
-def insert_sensor(session, created_date, monitor_id, row):
+def insert_sensor(session, monitor_id, row):
     monitor = session.query(Monitor).get(monitor_id)
     try:
         session.add(

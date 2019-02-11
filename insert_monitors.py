@@ -1,4 +1,3 @@
-
 import sys
 from functools import partial
 
@@ -7,10 +6,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 
 from model import (
-    Base,
     Monitor,
-    Estimation,
-    Appliance,
     engine,
 )
 

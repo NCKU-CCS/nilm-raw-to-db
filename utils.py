@@ -1,20 +1,20 @@
 import os
 import csv
 
-def search_files_in_folder(folder, filter_fn = lambda f: True):
+def search_files_in_folder(folder, filter_fn=lambda f: True):
     searched_files = list()
-    for r, _, files in os.walk(folder):
+    for f_dir, _, files in os.walk(folder):
         for file in files:
             if filter_fn(file):
-                searched_files.append(os.path.join(r, file))
+                searched_files.append(os.path.join(f_dir, file))
     return searched_files
 
-def read_csv_file(f):
+def read_csv_file(file_path):
     content = []
-    with open(f) as csv_file:
+    with open(file_path) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-                content.append(row)
+            content.append(row)
         return content
 
 def loop_csv_files(file_path_list, callback):

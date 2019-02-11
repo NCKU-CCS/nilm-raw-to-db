@@ -1,5 +1,3 @@
-import os
-import sys
 from sqlalchemy import (
     Column,
     ForeignKey,
@@ -31,7 +29,7 @@ class Estimation(Base):
     monitor = relationship('Monitor')
     monitor_id = Column(Integer, ForeignKey('monitor.id'))
 
-    
+
 class Appliance(Base):
     __tablename__ = 'appliance'
     id = Column(Integer, primary_key=True)
